@@ -21,7 +21,7 @@ struct Config {
 };
 
 struct ID {
-  int id = 0;
+  unsigned long id = 0;
 };
 
 Config con;
@@ -47,8 +47,10 @@ void setup()
 
 void loop()
 { Serial.println("start iteration");
+packet_id.id += 500000;
+Serial.println(packet_id.id);
   float start_loop = millis();
-  for (uint8_t sf = 7; sf < 13; sf += 1) {
+  for (uint8_t sf = 7; sf < 8; sf += 1) {
         rf95.setFrequency(863.1);
         rf95.setSpreadingFactor(12);
         while(latitude == TinyGPS::GPS_INVALID_F_ANGLE) {smartdelay(100);gps.f_get_position(&latitude, &longitude, &age);}

@@ -26,11 +26,11 @@ struct Location {
 
 struct Data {
   int16_t rssi;
-  int packet_id;
+  unsigned long packet_id;
 };
 
 struct ID {
-  int id;
+  unsigned long id;
 };
 
 Config con;
