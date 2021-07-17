@@ -26,7 +26,7 @@ while 1:
                     if ser.in_waiting > 0:
                         data = struct.unpack(data_format, ser.read(data_size))
                         current_millis = time.time()
-                        c.execute('INSERT INTO exp_july (RSSI,SNR,T_FLAT,T_FLONG,A_FLAT,A_FLONG,FREQ,SF) VALUES (?,?,?,?,?,?,?,?)',
+                        c.execute('INSERT INTO exp_final (RSSI,SNR,T_FLAT,T_FLONG,A_FLAT,A_FLONG,FREQ,SF) VALUES (?,?,?,?,?,?,?,?)',
                                                     (data[0], (1*data[1] + (2**8)*data[2] + (2**16)*data[3] + (2**32)*data[4]), round(config[1],6), round(config[2],6), round(a_loc[0],6), round(a_loc[1],6), round(config[0],1), config[3]))
                 except:
                     print("error in data packets")
