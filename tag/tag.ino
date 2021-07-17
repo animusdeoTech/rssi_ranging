@@ -25,10 +25,10 @@ struct ID {
 };
 
 Config con;
-//float latitude = TinyGPS::GPS_INVALID_F_ANGLE;
-//float longitude = TinyGPS::GPS_INVALID_F_ANGLE;
-float latitude = 1.1;
-float longitude = 1.1;
+float latitude = TinyGPS::GPS_INVALID_F_ANGLE;
+float longitude = TinyGPS::GPS_INVALID_F_ANGLE;
+//float latitude = 1.1;
+//float longitude = 1.1;
 const float frequencies[7] = { 863.1 };
 ID packet_id;
 unsigned long age = 0;
@@ -68,7 +68,7 @@ void loop()
           packet_id.id += 1;
           rf95.send((uint8_t*)&packet_id, sizeof(packet_id));
         }
-//        latitude = TinyGPS::GPS_INVALID_F_ANGLE; longitude = TinyGPS::GPS_INVALID_F_ANGLE;
+        latitude = TinyGPS::GPS_INVALID_F_ANGLE; longitude = TinyGPS::GPS_INVALID_F_ANGLE;
         smartdelay(7000);
   }
 //  Serial.print("one iteration took "); Serial.print(String((millis() - start_loop)/1000.0)); Serial.println(" seconds");
