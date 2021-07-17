@@ -25,10 +25,10 @@ struct ID {
 };
 
 Config con;
-//float latitude = TinyGPS::GPS_INVALID_F_ANGLE;
-//float longitude = TinyGPS::GPS_INVALID_F_ANGLE;
-float latitude = 1.1;
-float longitude = 1.1;
+float latitude = TinyGPS::GPS_INVALID_F_ANGLE;
+float longitude = TinyGPS::GPS_INVALID_F_ANGLE;
+//float latitude = 1.1;
+//float longitude = 1.1;
 const float frequencies[7] = { 863.1 };
 ID packet_id;
 unsigned long age = 0;
