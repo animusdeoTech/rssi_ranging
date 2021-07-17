@@ -73,8 +73,8 @@ void loop()
       rf95.send(mess, sizeof(mess));
       rf95.waitPacketSent();
       uint8_t message[1];
-//      Serial.write((uint8_t*)&loc, sizeof(loc));
-//      Serial.write((uint8_t*)&con, sizeof(con));
+      Serial.write((uint8_t*)&loc, sizeof(loc));
+      Serial.write((uint8_t*)&con, sizeof(con));
 //      Serial.print("SF: "); Serial.println(con.sf);
       current_millis = millis();
       uint8_t l = sizeof(data);
