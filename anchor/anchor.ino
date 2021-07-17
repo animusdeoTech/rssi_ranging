@@ -38,10 +38,10 @@ Location loc;
 Data data;
 ID packet_id;
 
-//float flat = TinyGPS::GPS_INVALID_F_ANGLE;
-//float flong = TinyGPS::GPS_INVALID_F_ANGLE;
-float flat = 1.1;
-float flong = 1.1;
+float flat = TinyGPS::GPS_INVALID_F_ANGLE;
+float flong = TinyGPS::GPS_INVALID_F_ANGLE;
+//float flat = 1.1;
+//float flong = 1.1;
 unsigned long age = 0;
 
 void setup() 
@@ -57,7 +57,7 @@ void setup()
   uint8_t mess[1] = {1}; 
   rf95.send(mess, sizeof(mess));
   rf95.waitPacketSent();
-  while(flat == TinyGPS::GPS_INVALID_F_ANGLE) {smartdelay(100);gps.f_get_position(&flat, &flong, &age); loc.flat = flat; loc.flong = flong;} 
+  while(flat == TinyGPS::GPS_INVALID_F_ANGLE) {smartdelay(1000);gps.f_get_position(&flat, &flong, &age); loc.flat = flat; loc.flong = flong;} 
 }
 
 void loop()
@@ -75,20 +75,20 @@ void loop()
       uint8_t message[1];
 //      Serial.write((uint8_t*)&loc, sizeof(loc));
 //      Serial.write((uint8_t*)&con, sizeof(con));
-      Serial.print("SF: "); Serial.println(con.sf);
+//      Serial.print("SF: "); Serial.println(con.sf);
       current_millis = millis();
       uint8_t l = sizeof(data);
-      uint8_t i = 0;
+//      uint8_t i = 0;
       while(millis() - current_millis < 5000)  {
         if (rf95.recv((uint8_t*)&packet_id, &id_len)) {
           data = {rf95.lastRssi(), packet_id.id};
           current_millis = millis();
-          i += 1;
-//          Serial.write((uint8_t*)&data, l);
+//          i += 1;
+          Serial.write((uint8_t*)&data, l);
         }
       }
-      Serial.print(i); Serial.println("/100 packets were received");
-      Serial.print("Last packet_id: "); Serial.println(packet_id.id);
+//      Serial.print(i); Serial.println("/100 packets were received");
+//      Serial.print("Last packet_id: "); Serial.println(packet_id.id);
     }
     rf95.init();
     rf95.setFrequency(863.1);

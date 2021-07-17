@@ -25,10 +25,10 @@ struct ID {
 };
 
 Config con;
-//float latitude = TinyGPS::GPS_INVALID_F_ANGLE;
-//float longitude = TinyGPS::GPS_INVALID_F_ANGLE;
-float latitude = 1.1;
-float longitude = 1.1;
+float latitude = TinyGPS::GPS_INVALID_F_ANGLE;
+float longitude = TinyGPS::GPS_INVALID_F_ANGLE;
+//float latitude = 1.1;
+//float longitude = 1.1;
 const float frequencies[7] = { 863.1 };
 ID packet_id;
 unsigned long age = 0;
@@ -46,16 +46,15 @@ void setup()
 }
 
 void loop()
-{ Serial.println("start iteration");
-packet_id.id += 500000;
-Serial.println(packet_id.id);
+{ 
+//  Serial.println("start iteration");
   float start_loop = millis();
   for (uint8_t sf = 7; sf < 8; sf += 1) {
         rf95.setFrequency(863.1);
         rf95.setSpreadingFactor(12);
         while(latitude == TinyGPS::GPS_INVALID_F_ANGLE) {smartdelay(100);gps.f_get_position(&latitude, &longitude, &age);}
         con = {frequencies[0], latitude, longitude, sf};
-        Serial.print("SF: "); Serial.println(sf);
+//        Serial.print("SF: "); Serial.println(sf);
         rf95.send((uint8_t*)&con, sizeof(con));
         rf95.waitPacketSent();
         smartdelay(200);
@@ -64,16 +63,16 @@ Serial.println(packet_id.id);
         rf95.setSpreadingFactor(sf);
         rf95.setFrequency(frequencies[0]);
         smartdelay(2000);
-        Serial.println(packet_id.id);
+//        Serial.println(packet_id.id);
         for (uint8_t i = 0; i < 100; i++) {
           packet_id.id += 1;
           rf95.send((uint8_t*)&packet_id, sizeof(packet_id));
         }
-//        latitude = TinyGPS::GPS_INVALID_F_ANGLE; longitude = TinyGPS::GPS_INVALID_F_ANGLE;
+        latitude = TinyGPS::GPS_INVALID_F_ANGLE; longitude = TinyGPS::GPS_INVALID_F_ANGLE;
         smartdelay(7000);
   }
-  Serial.print("one iteration took "); Serial.print(String((millis() - start_loop)/1000.0)); Serial.println(" seconds");
-  Serial.flush();
+//  Serial.print("one iteration took "); Serial.print(String((millis() - start_loop)/1000.0)); Serial.println(" seconds");
+//  Serial.flush();
 }
 
 
