@@ -73,6 +73,7 @@ void loop()
       rf95.send(mess, sizeof(mess));
       rf95.waitPacketSent();
       uint8_t message[1];
+      smartdelay(100);gps.f_get_position(&flat, &flong, &age); loc.flat = flat; loc.flong = flong;
       Serial.write((uint8_t*)&loc, sizeof(loc));
       Serial.write((uint8_t*)&con, sizeof(con));
 //      Serial.print("SF: "); Serial.println(con.sf);
@@ -96,6 +97,7 @@ void loop()
     rf95.setCodingRate4(4);
     rf95.setTxPower(20);  
     delay(1);
+    smartdelay(100);gps.f_get_position(&flat, &flong, &age); loc.flat = flat; loc.flong = flong;
   }
 }
 
