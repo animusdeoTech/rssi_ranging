@@ -71,7 +71,7 @@ void loop()
         for (uint8_t i = 0; i < 100; i++) {
           packet_id.id += 1;
           rf95.send((uint8_t*)&packet_id, sizeof(packet_id));
-        }
+        } 
         latitude = TinyGPS::GPS_INVALID_F_ANGLE; longitude = TinyGPS::GPS_INVALID_F_ANGLE;
         smartdelay(7000);
   }
