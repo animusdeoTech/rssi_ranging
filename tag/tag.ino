@@ -37,22 +37,26 @@ void setup()
 {
   Serial.begin(9600);
   while (!Serial);
+  Serial.println("rf95.init");
   if (!rf95.init()) while(1);
   rf95.setFrequency(863.1);
   rf95.setSpreadingFactor(12);
   rf95.setCodingRate4(4);
   rf95.setTxPower(20);
+  Serial.println("ss.begin()");
   ss.begin(9600);
 }
 
 void loop()
 { 
-//  Serial.println("start iteration");
+  Serial.println("start iteration");
   float start_loop = millis();
   for (uint8_t sf = 7; sf < 13; sf += 1) {
         rf95.setFrequency(863.1);
         rf95.setSpreadingFactor(12);
+        Serial.println("GPS");
         while(latitude == TinyGPS::GPS_INVALID_F_ANGLE) {smartdelay(100);gps.f_get_position(&latitude, &longitude, &age);}
+        Serial.println("Succes");
         con = {frequencies[0], latitude, longitude, sf};
         Serial.print("SF: "); Serial.println(sf);
         rf95.send((uint8_t*)&con, sizeof(con));
